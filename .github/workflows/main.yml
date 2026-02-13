@@ -39,4 +39,4 @@ jobs:
           context: .
           push: true
           # Remplace 'nom-de-ton-repo' par le nom souhaité pour l'image
-          tags: ${{ secrets.DOCKERHUB7_USERNAME }}/mon-projet-spring:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mon-projet-spring:latest
