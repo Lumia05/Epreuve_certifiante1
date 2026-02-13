@@ -38,5 +38,5 @@
           with:
             context: .
             push: true
-            # Remplace 'nom-de-ton-repo' par le nom souhaité pour l'image
+            # Remplace 'nom-de-ton-repo' par le nom souhaité pour l'image donc mon-projet-spring
             tags: ${{ secrets.DOCKERHUB_USERNAME }}/mon-projet-spring:latest
