@@ -1,42 +1,42 @@
-name: Java CI/CD avec Docker Hub
+  name: Java CI/CD avec Docker Hub
 
-on:
-  push:
-    branches: [ "main" ] # Se déclenche sur chaque push vers main
+  on:
+    push:
+      branches: [ "main" ] # Se déclenche sur chaque push vers main
 
-jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
+  jobs:
+    build-and-push:
+      runs-on: ubuntu-latest
 
-    steps:
-      # 1. Récupérer le code source
-      - name: Checkout du code
-        uses: actions/checkout@v4
+      steps:
+        # 1. Récupérer le code source
+        - name: Checkout du code
+          uses: actions/checkout@v4
 
-      # 2. Installer Java 21 (Temurin est recommandé pour la stabilité)
-      - name: Setup Java 21
-        uses: actions/setup-java@v4
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-          cache: 'maven'
+        # 2. Installer Java 21 (Temurin est recommandé pour la stabilité)
+        - name: Setup Java 21
+          uses: actions/setup-java@v4
+          with:
+            java-version: '21'
+            distribution: 'temurin'
+            cache: 'maven'
 
-      # 3. Compiler et tester avec Maven
-      - name: Build and Test with Maven
-        run: mvn clean verify
+        # 3. Compiler et tester avec Maven
+        - name: Build and Test with Maven
+          run: mvn clean verify
 
-      # 4. Se connecter à Docker Hub en utilisant vos secrets
-      - name: Connexion à Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
+        # 4. Se connecter à Docker Hub en utilisant vos secrets
+        - name: Connexion à Docker Hub
+          uses: docker/login-action@v3
+          with:
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKER_TOKEN }}
 
-      # 5. Construire et pousser l'image Docker
-      - name: Build and Push image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: true
-          # Remplace 'nom-de-ton-repo' par le nom souhaité pour l'image
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/mon-projet-spring:latest
+        # 5. Construire et pousser l'image Docker
+        - name: Build and Push image
+          uses: docker/build-push-action@v5
+          with:
+            context: .
+            push: true
+            # Remplace 'nom-de-ton-repo' par le nom souhaité pour l'image
+            tags: ${{ secrets.DOCKERHUB_USERNAME }}/mon-projet-spring:latest
